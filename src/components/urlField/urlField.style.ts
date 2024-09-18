@@ -5,27 +5,26 @@ const {colors, font, size, fontFamily} = theme;
 
 const textInputStyles = StyleSheet.create({
   container: {
-    height: 56,
-    width: '100%',
+    flex: 1,
+    minHeight: 56,
     fontSize: size.base,
     fontWeight: font.regular,
     fontFamily: fontFamily.body.regular,
     borderRadius: 10,
     borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
+    borderTopLeftRadius: 5,
     paddingTop: 22,
     paddingBottom: 0,
-
     backgroundColor: colors.input,
     color: colors.primary,
-    paddingHorizontal: 14,
+    paddingLeft: 4,
   },
   label: {
     marginBottom: 8,
   },
   animatedStyle: {
     top: 19,
-    left: 5,
+    left: 8,
     position: 'absolute',
     paddingHorizontal: 10,
     zIndex: 10,
@@ -34,11 +33,24 @@ const textInputStyles = StyleSheet.create({
     fontWeight: font.regular,
   },
   wrap: {
-    flex: 1,
+    overflow: 'hidden',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.input,
+    borderRadius: 10,
+    gap: 20,
+  },
+  protocolText: {
+    position: 'relative',
+    top: 28,
+    left: 14,
+    color: colors.inputLable,
+    fontFamily: fontFamily.heading.medium,
+    fontSize: size.base,
+    borderRightWidth: 0.2,
+    borderRightColor: '#154876',
+    paddingRight: 10,
+    fontWeight: font.medium,
+    maxHeight: 20,
   },
 });
 

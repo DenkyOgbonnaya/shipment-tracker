@@ -19,6 +19,7 @@ import Button from './src/components/button';
 import Checkbox from './src/components/checkbox';
 import Tag from './src/components/tag';
 import TextField from './src/components/textField';
+import UrlField from './src/components/urlField';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -43,12 +44,8 @@ function App(): React.JSX.Element {
 
       <Checkbox onCheck={() => {}} />
 
-      <Tag variant="error" />
-      <Tag variant="delivered" />
-      <Tag variant="cancelled" />
-      <Tag variant="hold" />
-      <Tag variant="recieved" />
       <TextField placeholder="Password" secureTextEntry />
+      <UrlField placeholder="Url" />
     </SafeAreaView>
   );
 }
