@@ -20,6 +20,7 @@ const UrlField: React.FC<Props> = ({
 }) => {
   const {colors} = theme;
   const [state, setState] = React.useState(value || '');
+  const [isFocused, setIsFocused] = React.useState(false);
   const moveText = React.useRef(new Animated.Value(0)).current;
 
   const moveTextTop = () => {
@@ -73,12 +74,14 @@ const UrlField: React.FC<Props> = ({
 
   const onFocusHandler = () => {
     moveTextTop();
+    setIsFocused(true);
   };
 
   const onBlurHandler = () => {
     if (!state) {
       moveTextBottom();
     }
+    setIsFocused(false);
   };
 
   return (
@@ -88,7 +91,11 @@ const UrlField: React.FC<Props> = ({
           style={[styles.animatedStyle, animStyle, {color: placeholderColor}]}>
           {placeholder}
         </Animated.Text>
-        <View style={styles.wrap}>
+        <View
+          style={[
+            styles.wrap,
+            {borderColor: isFocused ? colors.borderHiglight : 'transparent'},
+          ]}>
           <Animated.Text style={[styles.protocolText, {opacity: moveText}]}>
             https://
           </Animated.Text>

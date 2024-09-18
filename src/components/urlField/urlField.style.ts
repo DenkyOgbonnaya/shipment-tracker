@@ -38,6 +38,7 @@ const textInputStyles = StyleSheet.create({
     backgroundColor: colors.input,
     borderRadius: 10,
     gap: 20,
+    borderWidth: 1,
   },
   protocolText: {
     position: 'relative',

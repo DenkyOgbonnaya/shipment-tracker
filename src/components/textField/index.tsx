@@ -20,6 +20,7 @@ const TextField: React.FC<Props> = ({
 }) => {
   const {colors} = theme;
   const [state, setState] = React.useState(value || '');
+  const [isFocused, setIsFocused] = React.useState(false);
   const moveText = React.useRef(new Animated.Value(0)).current;
 
   const moveTextTop = () => {
@@ -73,12 +74,14 @@ const TextField: React.FC<Props> = ({
 
   const onFocusHandler = () => {
     moveTextTop();
+    setIsFocused(true);
   };
 
   const onBlurHandler = () => {
     if (!state) {
       moveTextBottom();
     }
+    setIsFocused(false);
   };
 
   return (
@@ -90,7 +93,16 @@ const TextField: React.FC<Props> = ({
         </Animated.Text>
         <View>
           <TextInput
-            style={[styles.container]}
+            style={[
+              [
+                styles.container,
+                {
+                  borderColor: isFocused
+                    ? colors.borderHiglight
+                    : 'transparent',
+                },
+              ],
+            ]}
             placeholderTextColor={colors.placeholder}
             underlineColorAndroid="transparent"
             value={state}
