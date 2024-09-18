@@ -18,6 +18,7 @@ import {theme} from './src/styles/theme';
 import Button from './src/components/button';
 import Checkbox from './src/components/checkbox';
 import Tag from './src/components/tag';
+import TextField from './src/components/textField';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -47,6 +48,7 @@ function App(): React.JSX.Element {
       <Tag variant="cancelled" />
       <Tag variant="hold" />
       <Tag variant="recieved" />
+      <TextField placeholder="Password" secureTextEntry />
     </SafeAreaView>
   );
 }
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 20,
     gap: 20,
   },
