@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {Checkmark} from 'assets';
 import React, {FC, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import styles from './checkbox.style';
 
 type Props = React.ComponentPropsWithRef<typeof TouchableOpacity> & {
@@ -24,7 +24,7 @@ const Checkbox: FC<Props> = ({value, onCheck, ...rest}) => {
       aria-checked={checked}
       style={[checked ? styles.checked : styles.default]}
       {...rest}>
-      {checked && <Checkmark testID="checbox-mark" />}
+      {checked && <Checkmark testID="checkbox-mark" />}
     </TouchableOpacity>
   );
 };
