@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import {theme} from './src/styles/theme';
+import Button from './src/components/button';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,6 +33,10 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <Text style={[styles.text, {color: theme.colors.text}]}>Hello World</Text>
+      <Button variant="primary" onPress={() => {}}>
+        Hi WOrld
+      </Button>
+      <Button variant="secondary">Hello Worldsss</Button>
     </SafeAreaView>
   );
 }
@@ -41,6 +46,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
+    gap: 20,
   },
   text: {
     fontSize: theme.size.md,
