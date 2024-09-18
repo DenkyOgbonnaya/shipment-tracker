@@ -16,6 +16,7 @@ import {
 
 import {theme} from './src/styles/theme';
 import Button from './src/components/button';
+import Checkbox from './src/components/checkbox';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -37,6 +38,8 @@ function App(): React.JSX.Element {
         Hi WOrld
       </Button>
       <Button variant="secondary">Hello Worldsss</Button>
+
+      <Checkbox onCheck={() => {}} />
     </SafeAreaView>
   );
 }

@@ -35,6 +35,7 @@ export const theme = {
     hold: '#FFF3D5',
     onHold: '#DB7E21',
     disabledText: '#CDCAD9',
+    inputBorder: '#757281',
   } as const,
   size: {
     xs: 10,
