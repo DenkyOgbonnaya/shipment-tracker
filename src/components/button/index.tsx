@@ -52,7 +52,11 @@ const Button: FC<Props> = ({
       disabled={disabled}
       {...rest}>
       {isLoading ? (
-        <ActivityIndicator size="large" color={loadingColor} />
+        <ActivityIndicator
+          size="large"
+          color={loadingColor}
+          testID="btn-loader"
+        />
       ) : (
         buttonContent
       )}
