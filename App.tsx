@@ -20,6 +20,7 @@ import Checkbox from './src/components/checkbox';
 import Tag from './src/components/tag';
 import TextField from './src/components/textField';
 import UrlField from './src/components/urlField';
+import SearchField from './src/components/searchField';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -46,6 +47,7 @@ function App(): React.JSX.Element {
 
       <TextField placeholder="Password" secureTextEntry />
       <UrlField placeholder="Url" />
+      <SearchField placeholder="Search" />
     </SafeAreaView>
   );
 }
