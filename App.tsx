@@ -7,13 +7,16 @@
 
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Navigations from './src/navigations';
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <Navigations />
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        <Navigations />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 

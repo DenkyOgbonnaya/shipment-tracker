@@ -1,22 +1,24 @@
-import {
-  StatusBar,
-  Text,
-  View,
-  Animated,
-  useWindowDimensions,
-} from 'react-native';
+import {StatusBar, View, Animated, useWindowDimensions} from 'react-native';
 import styles from './splash.style';
 import {LaunchIcon} from 'assets';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {AuthStackParamList} from 'navigations/types/authStack.types';
+import {useNavigation} from '@react-navigation/native';
+import {WELCOME_SCREEN} from 'navigations/constants/authStack.constants';
+import {theme} from 'styles/theme';
 
 export default function Splash() {
   const {height, width} = useWindowDimensions();
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(0)).current;
+  const [splashFinished, setSplashFinished] = useState(false);
+
   const xOuputVal = width / 2 - 150;
   const yOuputVal = height;
-  //   const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParamList, 'Splash'>>();
 
   const sacleAnimation = Animated.timing(scaleAnim, {
     toValue: 1,
@@ -45,7 +47,15 @@ export default function Splash() {
       sacleAnimation,
       rotateAnimation,
       translateAnimation,
-    ]).start();
+    ]).start(({finished}) => {
+      setSplashFinished(true);
+
+      // delay spalsh for some secs before
+      // routing to welcome screen
+      setTimeout(() => {
+        navigation.navigate(WELCOME_SCREEN);
+      }, 3000);
+    });
 
     return () => {
       sacleAnimation.stop();
@@ -75,7 +85,15 @@ export default function Splash() {
   });
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: splashFinished
+            ? theme.colors.primary
+            : theme.colors.background,
+        },
+      ]}>
       <StatusBar translucent backgroundColor="transparent" />
 
       <Animated.View
