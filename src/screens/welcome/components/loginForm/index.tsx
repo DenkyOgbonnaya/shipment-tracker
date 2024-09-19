@@ -8,8 +8,12 @@ import {ChevronLeft} from 'assets';
 
 interface Props {
   onCancel: () => void;
+  onLogin: () => void;
 }
-export default function LoginForm({onCancel}: Props) {
+export default function LoginForm({onCancel, onLogin}: Props) {
+  const handleLogin = () => {
+    onLogin();
+  };
   return (
     <Form>
       <View style={styles.container}>
@@ -36,7 +40,7 @@ export default function LoginForm({onCancel}: Props) {
         </View>
 
         <View style={styles.action}>
-          <Button>Login</Button>
+          <Button onPress={handleLogin}>Login</Button>
         </View>
       </View>
     </Form>

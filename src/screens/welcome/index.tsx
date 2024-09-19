@@ -7,9 +7,15 @@ import {Logo} from 'assets';
 import {useRef} from 'react';
 import ModalHeader from 'components/modalHeader';
 import LoginForm from './components/loginForm';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {AuthStackParamList} from 'navigations/types/authStack.types';
+import {DASHBOARD_SCREEN} from 'navigations/constants/authStack.constants';
 
 export default function Welcome() {
   const loginRef = useRef<Modalize | null>(null);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParamList, 'Welcome'>>();
 
   const handleOpenLoginModal = () => {
     loginRef.current?.open();
@@ -17,6 +23,11 @@ export default function Welcome() {
 
   const handleCloseLoginModal = () => {
     loginRef.current?.close();
+  };
+
+  const handleLoginSuccess = () => {
+    handleCloseLoginModal();
+    navigation.navigate(DASHBOARD_SCREEN);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +47,10 @@ export default function Welcome() {
         ref={loginRef}
         HeaderComponent={<ModalHeader />}
         withHandle={false}>
-        <LoginForm onCancel={handleCloseLoginModal} />
+        <LoginForm
+          onCancel={handleCloseLoginModal}
+          onLogin={handleLoginSuccess}
+        />
       </Modalize>
     </SafeAreaView>
   );
