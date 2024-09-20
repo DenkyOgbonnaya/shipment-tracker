@@ -1,43 +1,54 @@
-import {StatusBar, View, Animated, useWindowDimensions} from 'react-native';
+import {
+  StatusBar,
+  View,
+  Animated,
+  useWindowDimensions,
+  Easing,
+} from 'react-native';
 import styles from './splash.style';
 import {LaunchIcon} from 'assets';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParamList} from 'navigations/types/authStack.types';
 import {useNavigation} from '@react-navigation/native';
 import {WELCOME_SCREEN} from 'navigations/constants/authStack.constants';
-import {theme} from 'styles/theme';
 
 export default function Splash() {
   const {height, width} = useWindowDimensions();
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(0)).current;
-  const [splashFinished, setSplashFinished] = useState(false);
+  const circleLargestAnim = useRef(new Animated.Value(0)).current;
 
-  const xOuputVal = width / 2 - 150;
   const yOuputVal = height;
   const navigation =
     useNavigation<NativeStackNavigationProp<AuthStackParamList, 'Splash'>>();
 
   const sacleAnimation = Animated.timing(scaleAnim, {
-    toValue: 1,
-    duration: 2000,
-    delay: 1000, //1 sec delay
+    toValue: 3,
+    duration: 1000,
+    delay: 1000,
     useNativeDriver: true,
   });
 
   const rotateAnimation = Animated.timing(rotateAnim, {
     toValue: 1,
     duration: 1000,
-    delay: 2000, // 2sec delay
+    delay: 700,
     useNativeDriver: true,
   });
 
   const translateAnimation = Animated.timing(translateAnim, {
     toValue: 1,
-    duration: 500,
-    delay: 800, // 800ms delay
+    duration: 600,
+    useNativeDriver: true,
+  });
+
+  const screenSplashAnimation = Animated.timing(circleLargestAnim, {
+    toValue: width,
+    duration: 1000,
+    delay: 300,
+    easing: Easing.linear,
     useNativeDriver: true,
   });
 
@@ -46,30 +57,16 @@ export default function Splash() {
     Animated.sequence([
       sacleAnimation,
       rotateAnimation,
-      translateAnimation,
+
+      Animated.parallel([translateAnimation, screenSplashAnimation]),
     ]).start(({finished}) => {
-      setSplashFinished(true);
-
-      // delay spalsh for some secs before
-      // routing to welcome screen
-      setTimeout(() => {
-        navigation.navigate(WELCOME_SCREEN);
-      }, 3000);
+      navigation.navigate(WELCOME_SCREEN);
     });
-
-    return () => {
-      sacleAnimation.stop();
-    };
   }, []);
 
   const translateY = translateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -yOuputVal],
-    extrapolate: 'clamp',
-  });
-  const translateX = translateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, xOuputVal],
     extrapolate: 'clamp',
   });
 
@@ -80,30 +77,33 @@ export default function Splash() {
   });
   const rotate = rotateAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '90deg'],
+    outputRange: ['0deg', '-20deg'],
     extrapolate: 'clamp',
   });
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: splashFinished
-            ? theme.colors.primary
-            : theme.colors.background,
-        },
-      ]}>
+    <Animated.View style={[styles.container]}>
       <StatusBar translucent backgroundColor="transparent" />
 
       <Animated.View
         style={[
           {
-            transform: [{translateY}, {translateX}, {scale}, {rotateZ: rotate}],
+            transform: [{translateY}, {scale}, {rotateX: rotate}],
           },
         ]}>
         <LaunchIcon />
       </Animated.View>
-    </View>
+      <View>
+        <Animated.View
+          style={[
+            styles.circlelarge,
+            {
+              transform: [{scale: circleLargestAnim}],
+              opacity: circleLargestAnim,
+            },
+          ]}
+        />
+      </View>
+    </Animated.View>
   );
 }
