@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderRadius: 10,
+    borderWidth: 1,
   },
   filterText: {
     fontSize: size.base,
@@ -93,10 +94,15 @@ const styles = StyleSheet.create({
   shipmentContainer: {
     marginTop: 64,
     gap: 16,
-    paddingBottom: 550,
+    flex: 1,
+    paddingHorizontal: 16,
   },
   listSeperator: {
     marginBottom: 8,
+  },
+  loader: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

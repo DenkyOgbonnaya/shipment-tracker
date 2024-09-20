@@ -10,7 +10,8 @@ const tag: ViewStyle = {
   paddingVertical: 4,
   justifyContent: 'center',
   alignItems: 'center',
-  borderColor: 'F4F2F8',
+  borderColor: colors.card,
+  borderWidth: 1,
 };
 
 const tagLabel: TextStyle = {

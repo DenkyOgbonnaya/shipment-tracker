@@ -16,14 +16,18 @@ import {
   TouchableOpacity,
   View,
   Animated,
+  Linking,
 } from 'react-native';
 import {theme} from 'styles/theme';
+import {Shipment} from 'types/shipment.type';
+import {truncateWords} from 'utills/helper';
 
 interface Props {
+  shipment: Shipment;
   isSelected?: boolean;
-  onSelect: (value: boolean) => void;
+  onSelect: (value: boolean, shipment: Shipment) => void;
 }
-export default function Shipment({isSelected, onSelect}: Props) {
+export default function ShipmentCard({isSelected, onSelect, shipment}: Props) {
   const fadeValue = useRef(new Animated.Value(0)).current;
   const [expanded, setExpanded] = useState(false);
 
@@ -31,7 +35,7 @@ export default function Shipment({isSelected, onSelect}: Props) {
   const handleStartFade = () => {
     return Animated.timing(fadeValue, {
       toValue: 1,
-      duration: 2000,
+      duration: 1000,
       useNativeDriver: false,
     }).start();
   };
@@ -56,6 +60,17 @@ export default function Shipment({isSelected, onSelect}: Props) {
     setExpanded(expanded => !expanded);
   };
 
+  const handleCall = () => {
+    if (shipment.consignee_phone) {
+      Linking.openURL(`tel:${shipment.consignee_phone}`);
+    }
+  };
+  const handleWhatsapp = () => {
+    if (shipment.consignee_phone) {
+      Linking.openURL(`https://wa.me/${shipment.consignee_phone}`);
+    }
+  };
+
   const maxHight = fadeValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 200],
@@ -69,6 +84,7 @@ export default function Shipment({isSelected, onSelect}: Props) {
 
   return (
     <View
+      key={`${isSelected}`}
       style={[
         styles.wrapper,
         {
@@ -81,7 +97,7 @@ export default function Shipment({isSelected, onSelect}: Props) {
         <View style={styles.col1}>
           <Checkbox
             value={isSelected}
-            onCheck={onSelect}
+            onCheck={value => onSelect(value, shipment)}
             aria-label="mark-shipment"
             testID="shipment-mark"
             aria-checked={isSelected}
@@ -89,16 +105,25 @@ export default function Shipment({isSelected, onSelect}: Props) {
           <Image source={Box} />
           <View style={styles.vstack}>
             <Text style={styles.shipmentTag}>AWB</Text>
-            <Text style={styles.shipmentNumber}>46789940034</Text>
+            <Text style={styles.shipmentNumber}>
+              {truncateWords(shipment.name, 12)}
+            </Text>
             <View style={styles.hstack}>
-              <Text style={styles.shipmentLocation}>Cairo</Text>
+              <Text style={styles.shipmentLocation}>
+                {truncateWords(shipment.origin_city, 10)}
+              </Text>
               <ArrowRight />
-              <Text style={styles.shipmentLocation}>Alexandar</Text>
+              <Text style={styles.shipmentLocation}>
+                {truncateWords(shipment.destination_city, 10)}
+              </Text>
             </View>
           </View>
         </View>
         <View style={styles.col2}>
-          <Tag variant="cancelled" aria-label="status" />
+          <Tag
+            variant={truncateWords(shipment.status.toLowerCase(), 8)}
+            aria-label="status"
+          />
           <TouchableOpacity
             onPress={toggleDetails}
             style={[
@@ -118,6 +143,9 @@ export default function Shipment({isSelected, onSelect}: Props) {
         </View>
       </View>
 
+      {
+        //  details
+      }
       <Animated.View
         style={[
           styles.closeAbleView,
@@ -132,20 +160,31 @@ export default function Shipment({isSelected, onSelect}: Props) {
         <View style={styles.row}>
           <View>
             <Text style={styles.labelText}>Origin</Text>
-            <Text style={styles.locationText}>Cairo</Text>
-            <Text style={styles.addressText}>Dokk, 22 Nile</Text>
+            <Text style={styles.locationText}>
+              {truncateWords(shipment.origin_city, 10)}
+            </Text>
+            <Text style={styles.addressText}>
+              {truncateWords(shipment.origin_state, 10)},{' '}
+              {truncateWords(shipment.origin_zone, 10)}
+            </Text>
           </View>
           <ArrowRightLarge />
 
           <View>
             <Text style={styles.labelText}>Destination</Text>
-            <Text style={styles.locationText}>Alexanda</Text>
-            <Text style={styles.addressText}>Dokk, 22 Nile</Text>
+            <Text style={styles.locationText}>
+              {truncateWords(shipment.destination_city, 10)}
+            </Text>
+            <Text style={styles.addressText}>
+              {truncateWords(shipment.destination_city, 10)},{' '}
+              {truncateWords(shipment.destination_zone, 10)}
+            </Text>
           </View>
         </View>
 
         <View style={styles.shipmentActions}>
           <TouchableOpacity
+            onPress={handleCall}
             style={styles.callBtn}
             aria-label="call"
             testID="call-btn">
@@ -155,6 +194,7 @@ export default function Shipment({isSelected, onSelect}: Props) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={handleWhatsapp}
             style={styles.wahtsappBtn}
             aria-label="whatsapp"
             testID="whatsapp">
@@ -184,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    minHeight: 67,
+    height: 67,
   },
   vstack: {},
   hstack: {
@@ -229,6 +269,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.font.regular,
     fontFamily: theme.fontFamily.body.regular,
     color: theme.colors.text,
+    textTransform: 'capitalize',
   },
   closeAbleView: {
     borderTopWidth: 2,
@@ -248,6 +289,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.font.regular,
     fontFamily: theme.fontFamily.body.regular,
     color: theme.colors.label,
+    textTransform: 'capitalize',
   },
   labelText: {
     fontSize: theme.size.sm - 1,
@@ -260,6 +302,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.font.regular,
     fontFamily: theme.fontFamily.body.regular,
     color: theme.colors.inputLable,
+    textTransform: 'capitalize',
   },
 
   shipmentActions: {

@@ -8,15 +8,18 @@ import useShipmentStatus from 'hooks/useShipmentStatus';
 interface Props {
   onCancel: () => void;
   onDone: (selections: string[]) => void;
+  selected: string;
 }
-export default function ShipmentFilter({onCancel, onDone}: Props) {
+export default function ShipmentFilter({onCancel, onDone, selected}: Props) {
   // Fetch a list of shipments status from the network
   const {data, isLoading} = useShipmentStatus({
     doctype: 'AWB Status',
     fields: ['*'],
   });
 
-  const [selections, setSelections] = useState<string[]>([]);
+  const [selections, setSelections] = useState<string[]>(() => {
+    return selected ? selected.split(',') : [];
+  });
 
   const handleDone = () => {
     onDone(selections);
@@ -55,7 +58,7 @@ export default function ShipmentFilter({onCancel, onDone}: Props) {
 
         {isLoading ? (
           <View style={styles.loader}>
-            <ActivityIndicator />
+            <ActivityIndicator color={theme.colors.primary} />
           </View>
         ) : (
           <View style={styles.statuslist}>

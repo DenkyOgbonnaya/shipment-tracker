@@ -39,6 +39,7 @@ const SearchField: React.FC<Props> = ({
 
   const resetSearch = () => {
     setState('');
+    if (onChangeText) onChangeText('');
   };
 
   return (
