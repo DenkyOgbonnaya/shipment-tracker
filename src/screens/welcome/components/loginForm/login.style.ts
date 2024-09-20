@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
   },
+  errorText: {
+    fontSize: size.sm + 1,
+    fontFamily: fontFamily.body.regular,
+    fontWeight: font.regular,
+    color: colors.onDanger,
+    lineHeight: 24,
+    letterSpacing: 0.4,
+  },
 });
 
 export default styles;
