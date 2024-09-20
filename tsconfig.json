@@ -28,6 +28,8 @@
     "@utills": ["./utills"],
     "@hooks": ["./hooks"],
     "@services": ["./services"],
+    "@libs": ["./libs"],
+    "@network": ["./network"],
   },
   "include": [
     ".eslinsstrc.js",

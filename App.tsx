@@ -9,13 +9,22 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Navigations from './src/navigations';
+import AuthProvider from './src/context/auth.context';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 function App(): React.JSX.Element {
+  // react query client
+  const queryClient = new QueryClient();
+
   return (
     <GestureHandlerRootView>
-      <NavigationContainer>
-        <Navigations />
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <AuthProvider>
+            <Navigations />
+          </AuthProvider>
+        </NavigationContainer>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }
