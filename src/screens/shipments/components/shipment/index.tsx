@@ -306,7 +306,6 @@ const styles = StyleSheet.create({
   },
 
   shipmentActions: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -332,7 +331,7 @@ const styles = StyleSheet.create({
   wahtsappBtn: {
     backgroundColor: theme.colors.whatsapp,
     minHeight: 44,
-    width: 'auto',
+    maxWidth: 150,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 6,
