@@ -13,3 +13,14 @@ export {default as WalletIcon} from './svgs/wallet.svg';
 export {default as BarcodeIcon} from './svgs/barcodes.svg';
 export {default as ProfileIcon} from './svgs/profile.svg';
 export {default as LogoBlue} from './svgs/logoBlue.svg';
+export {default as FilterIcon} from './svgs/filter.svg';
+export {default as ScannerIcon} from './svgs/scanner.svg';
+export {default as ArrowRight} from './svgs/arrowRight.svg';
+export {default as DirectArrow} from './svgs/direction.svg';
+export {default as ArrowRightLarge} from './svgs/arrowRightLarge.svg';
+export {default as CallIcon} from './svgs/call.svg';
+export {default as WhatsappIcon} from './svgs/whatsapp.svg';
+
+// images
+export {default as DefualtUser} from './images/defualtUser.png';
+export {default as Box} from './images/box.png';

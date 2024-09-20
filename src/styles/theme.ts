@@ -36,6 +36,9 @@ export const theme = {
     onHold: '#DB7E21',
     disabledText: '#CDCAD9',
     inputBorder: '#757281',
+    subText: '#3F395C',
+    whatsapp: '#25D366',
+    primaryLight: '#6E91EC',
   } as const,
   size: {
     xs: 10,
