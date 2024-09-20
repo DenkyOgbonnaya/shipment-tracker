@@ -1,24 +1,23 @@
 import styles from './shipmentFilter.style';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 
 import {useState} from 'react';
 import {theme} from 'styles/theme';
+import useShipmentStatus from 'hooks/useShipmentStatus';
 
 interface Props {
   onCancel: () => void;
   onDone: (selections: string[]) => void;
 }
 export default function ShipmentFilter({onCancel, onDone}: Props) {
+  // Fetch a list of shipments status from the network
+  const {data, isLoading} = useShipmentStatus({
+    doctype: 'AWB Status',
+    fields: ['*'],
+  });
+
   const [selections, setSelections] = useState<string[]>([]);
-  const statuses = [
-    'Recieved',
-    'Putaway',
-    'Delivered',
-    'Canceled',
-    'Rejected',
-    'Lost',
-    'On Hold',
-  ];
+
   const handleDone = () => {
     onDone(selections);
   };
@@ -31,6 +30,7 @@ export default function ShipmentFilter({onCancel, onDone}: Props) {
       const updatedSelections = selections.filter(item => item !== status);
       setSelections(updatedSelections);
     } else {
+      // add new selection
       setSelections(selections.concat(status));
     }
   };
@@ -53,35 +53,41 @@ export default function ShipmentFilter({onCancel, onDone}: Props) {
       <View style={styles.inputs}>
         <Text style={styles.labelText}>SHIPMENT STATUS</Text>
 
-        <View style={styles.statuslist}>
-          {statuses?.map(status => (
-            <TouchableOpacity
-              key={status}
-              aria-selected={selections.includes(status)}
-              aria-label="shipment-status"
-              style={[
-                styles.status,
-                {
-                  borderColor: selections.includes(status)
-                    ? theme.colors.borderHiglight
-                    : theme.colors.surface,
-                },
-              ]}
-              onPress={() => onSelect(status)}>
-              <Text
+        {isLoading ? (
+          <View style={styles.loader}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          <View style={styles.statuslist}>
+            {data?.message?.map(status => (
+              <TouchableOpacity
+                key={status.status}
+                aria-selected={selections.includes(status.status)}
+                aria-label="shipment-status"
                 style={[
-                  styles.statusText,
+                  styles.status,
                   {
-                    color: selections.includes(status)
-                      ? theme.colors.primary
-                      : theme.colors.inputLable,
+                    borderColor: selections.includes(status.status)
+                      ? theme.colors.borderHiglight
+                      : theme.colors.surface,
                   },
-                ]}>
-                {status}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+                ]}
+                onPress={() => onSelect(status.status)}>
+                <Text
+                  style={[
+                    styles.statusText,
+                    {
+                      color: selections.includes(status.status)
+                        ? theme.colors.primary
+                        : theme.colors.inputLable,
+                    },
+                  ]}>
+                  {status.status}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
     </View>
   );

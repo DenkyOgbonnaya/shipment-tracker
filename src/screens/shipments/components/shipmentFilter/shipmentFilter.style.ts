@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.body.regular,
     fontWeight: font.regular,
     color: colors.inputLable,
+    textTransform: 'capitalize',
   },
   titleText: {
     fontSize: size.base + 2,
@@ -78,6 +79,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+  },
+  loader: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

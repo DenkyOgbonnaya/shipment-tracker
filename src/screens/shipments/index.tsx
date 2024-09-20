@@ -17,8 +17,10 @@ import {useRef} from 'react';
 import {Modalize} from 'react-native-modalize';
 import ModalHeader from 'components/modalHeader';
 import ShipmentFilter from './components/shipmentFilter';
+import useAuth from 'hooks/useAuth';
 
 export default function Shipments() {
+  const {user} = useAuth();
   const filterRef = useRef<Modalize | null>(null);
 
   const handleSelection = () => {};
@@ -44,7 +46,7 @@ export default function Shipments() {
         <HeaderBar />
         <View style={styles.toView}>
           <Text style={styles.greetText}>Hello,</Text>
-          <Text style={styles.userText}>Ibrahim Shaker</Text>
+          <Text style={styles.userText}>{user?.full_name}</Text>
           <SearchField
             placeholder="Search"
             testID="search-field"
