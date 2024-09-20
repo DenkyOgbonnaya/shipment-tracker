@@ -28,7 +28,7 @@ const textInputStyles = StyleSheet.create({
     left: 5,
     position: 'absolute',
     paddingHorizontal: 10,
-    zIndex: 10,
+    zIndex: 1,
     fontFamily: fontFamily.heading.regular,
     fontSize: size.base,
     fontWeight: font.regular,

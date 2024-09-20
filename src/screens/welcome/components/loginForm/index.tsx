@@ -99,13 +99,15 @@ export default function LoginForm({onCancel, onLogin}: Props) {
           />
         </View>
         {error && (
-          <Text style={styles.errorText}>{error.response.data.message}</Text>
+          <Text style={styles.errorText}>
+            {error?.response?.data?.message || 'Something went wrong'}
+          </Text>
         )}
 
         <View style={styles.action}>
           <Button
             isLoading={isPending}
-            disabled={isInputsNotField}
+            disabled={isInputsNotField || isPending}
             onPress={submitHandler}>
             Login
           </Button>

@@ -102,11 +102,11 @@ export default function ShipmentCard({isSelected, onSelect, shipment}: Props) {
             testID="shipment-mark"
             aria-checked={isSelected}
           />
-          <Image source={Box} />
+          <Image source={Box} resizeMode="contain" />
           <View style={styles.vstack}>
             <Text style={styles.shipmentTag}>AWB</Text>
             <Text style={styles.shipmentNumber}>
-              {truncateWords(shipment.name, 12)}
+              {truncateWords(shipment.name, 11)}
             </Text>
             <View style={styles.hstack}>
               <Text style={styles.shipmentLocation}>
@@ -121,7 +121,7 @@ export default function ShipmentCard({isSelected, onSelect, shipment}: Props) {
         </View>
         <View style={styles.col2}>
           <Tag
-            variant={truncateWords(shipment.status.toLowerCase(), 8)}
+            variant={truncateWords(shipment.status.toLowerCase(), 7)}
             aria-label="status"
           />
           <TouchableOpacity
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     color: theme.colors.subText,
   },
   shipmentNumber: {
-    fontSize: theme.size.base + 2,
+    fontSize: theme.size.base,
     fontWeight: theme.font.semibold,
     fontFamily: theme.fontFamily.body.semiBold,
     color: theme.colors.title,

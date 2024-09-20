@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: size.xxxl,
-    fontFamily: fontFamily.heading.bold,
-    fontWeight: font.bold,
+    fontFamily: fontFamily.heading.semiBold,
+    fontWeight: font.semibold,
     color: colors.title,
   },
   subText: {

@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   },
   userText: {
     fontSize: size.xxl,
-    fontFamily: fontFamily.heading.bold,
-    fontWeight: font.bold,
+    fontFamily: fontFamily.heading.semiBold,
+    fontWeight: font.semibold,
     color: colors.title,
     marginBottom: 24,
   },
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: size.xl + 2,
-    fontFamily: fontFamily.heading.bold,
-    fontWeight: font.bold,
+    fontFamily: fontFamily.heading.semiBold,
+    fontWeight: font.semibold,
     color: colors.title,
   },
   markText: {
