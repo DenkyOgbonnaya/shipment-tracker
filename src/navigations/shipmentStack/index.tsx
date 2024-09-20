@@ -25,6 +25,7 @@ export const ShipmentStack = () => {
     <Navigator
       initialRouteName={SHIPMENTS_SCREEN}
       screenOptions={{
+        animation: 'fade',
         headerStyle: {
           backgroundColor: colors.background,
         },
